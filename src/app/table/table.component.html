@@ -1,0 +1,48 @@
+<div class="table-container">
+  <mat-table [dataSource]="dataSource">
+
+    <!-- Column 1 -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>
+        <span>Name</span>
+        <button mat-icon-button [matMenuTriggerFor]="nameMenu">
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #nameMenu="matMenu">
+          <!-- <button mat-menu-item (click)="selectedName = ''; updateTableData()">All</button> -->
+          <button mat-menu-item *ngFor="let name of names" [value]="name" (click)="selectedName = name; updateTableData()">{{ name }}</button>
+        </mat-menu>
+
+        <!-- OR -->
+
+        <!-- If we dont need icon then we can use the mat-form-field -->
+        <!-- <mat-form-field>
+          <mat-select [(ngModel)]="selectedName" (ngModelChange)="updateTableData()">
+            <mat-option *ngFor="let name of names" [value]="name">{{ name }}</mat-option>
+          </mat-select>
+        </mat-form-field> -->
+
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+    </ng-container>
+
+    <!-- Column 2 -->
+    <ng-container matColumnDef="age">
+      <mat-header-cell *matHeaderCellDef>
+        <span>Age</span>
+        <!-- <button mat-icon-button [matMenuTriggerFor]="ageMenu">
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #ageMenu="matMenu">
+          <button mat-menu-item (click)="selectedAge = null; updateTableData()">All</button>
+          <button mat-menu-item *ngFor="let age of ages" [value]="age" (click)="selectedAge = ''; updateTableData()">{{ age !== null ? age : 'All' }}</button>
+        </mat-menu> -->
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.age }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
+
